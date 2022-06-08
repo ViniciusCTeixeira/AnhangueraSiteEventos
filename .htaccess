@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{HTTP_HOST} ^www\.eventos-anhanguera\.tk [NC]
+    RewriteRule ^(.*)$ https://eventos-anhanguera.tk/$1 [L,R=301]
+
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP_HOST} !^localhost
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L]
+    RewriteRule ^(\.well-known/.*)$ $1 [L]
+
+    RewriteRule ^$    webroot/    [L]
+    RewriteRule (.*) webroot/$1    [L]
+</IfModule>
