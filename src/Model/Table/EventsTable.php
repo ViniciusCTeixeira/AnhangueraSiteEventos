@@ -15,7 +15,7 @@ class EventsTable extends Table
         parent::initialize($config);
 
         $this->setTable('events');
-        $this->setDisplayField('title');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp', [
@@ -27,10 +27,6 @@ class EventsTable extends Table
             ]
         ]);
 
-        $this->belongsTo('Speakers', [
-            'foreignKey' => 'speaker_id',
-            'joinType' => 'INNER',
-        ]);
         $this->hasMany('EventParticipants', [
             'foreignKey' => 'event_id',
         ]);
@@ -43,6 +39,12 @@ class EventsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
+            ->scalar('name')
+            ->maxLength('name', 255)
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
+
+        $validator
             ->scalar('title')
             ->maxLength('title', 255)
             ->requirePresence('title', 'create')
@@ -51,8 +53,7 @@ class EventsTable extends Table
         $validator
             ->scalar('description')
             ->maxLength('description', 4294967295)
-            ->requirePresence('description', 'create')
-            ->notEmptyString('description');
+            ->allowEmptyString('description');
 
         $validator
             ->dateTime('date_time_start')
@@ -60,21 +61,13 @@ class EventsTable extends Table
             ->notEmptyDateTime('date_time_start');
 
         $validator
-            ->dateTime('date_time_stop')
-            ->requirePresence('date_time_stop', 'create')
-            ->notEmptyDateTime('date_time_stop');
+            ->dateTime('date_time_end')
+            ->requirePresence('date_time_end', 'create')
+            ->notEmptyDateTime('date_time_end');
 
         $validator
-            ->requirePresence('status', 'create')
             ->notEmptyString('status');
 
         return $validator;
-    }
-
-    public function buildRules(RulesChecker $rules): RulesChecker
-    {
-        $rules->add($rules->existsIn('speaker_id', 'Speakers'), ['errorField' => 'speaker_id']);
-
-        return $rules;
     }
 }

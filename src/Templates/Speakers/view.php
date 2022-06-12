@@ -56,11 +56,11 @@
                             <th><?= __('Id') ?></th>
                             <th><?= __('Created') ?></th>
                             <th><?= __('Modified') ?></th>
+                            <th><?= __('Name') ?></th>
                             <th><?= __('Title') ?></th>
                             <th><?= __('Description') ?></th>
                             <th><?= __('Date Time Start') ?></th>
-                            <th><?= __('Date Time Stop') ?></th>
-                            <th><?= __('Speaker Id') ?></th>
+                            <th><?= __('Date Time End') ?></th>
                             <th><?= __('Status') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
@@ -69,11 +69,11 @@
                             <td><?= h($events->id) ?></td>
                             <td><?= h($events->created) ?></td>
                             <td><?= h($events->modified) ?></td>
+                            <td><?= h($events->name) ?></td>
                             <td><?= h($events->title) ?></td>
                             <td><?= h($events->description) ?></td>
                             <td><?= h($events->date_time_start) ?></td>
-                            <td><?= h($events->date_time_stop) ?></td>
-                            <td><?= h($events->speaker_id) ?></td>
+                            <td><?= h($events->date_time_end) ?></td>
                             <td><?= h($events->status) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Events', 'action' => 'view', $events->id]) ?>

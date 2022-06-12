@@ -60,9 +60,10 @@
                             <th><?= __('Id') ?></th>
                             <th><?= __('Created') ?></th>
                             <th><?= __('Modified') ?></th>
-                            <th><?= __('Participant Id') ?></th>
-                            <th><?= __('Event Id') ?></th>
                             <th><?= __('Cert') ?></th>
+                            <th><?= __('Status') ?></th>
+                            <th><?= __('Event Id') ?></th>
+                            <th><?= __('Participant Id') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($participant->event_participants as $eventParticipants) : ?>
@@ -70,9 +71,10 @@
                             <td><?= h($eventParticipants->id) ?></td>
                             <td><?= h($eventParticipants->created) ?></td>
                             <td><?= h($eventParticipants->modified) ?></td>
-                            <td><?= h($eventParticipants->participant_id) ?></td>
-                            <td><?= h($eventParticipants->event_id) ?></td>
                             <td><?= h($eventParticipants->cert) ?></td>
+                            <td><?= h($eventParticipants->status) ?></td>
+                            <td><?= h($eventParticipants->event_id) ?></td>
+                            <td><?= h($eventParticipants->participant_id) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'EventParticipants', 'action' => 'view', $eventParticipants->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'EventParticipants', 'action' => 'edit', $eventParticipants->id]) ?>

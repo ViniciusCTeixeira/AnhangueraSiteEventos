@@ -27,6 +27,16 @@ $(function (){
                 e.preventDefault();
             });
 
+            $(".navbar-toggler").on('click', function (){
+                $(this).toggleClass("active");
+                $(".navbar-collapse").toggleClass("show");
+            });
+
+            $(".navbar-nav a").on('click', function (){
+                $(".navbar-toggler").removeClass('active');
+                $(".navbar-collapse").removeClass("show");
+            });
+
             //- --------------------------------------------------------------------------------------------------------
             //- scroll to move
             $('.scrollMove').on('click.smoothscroll', function (e){
@@ -53,23 +63,6 @@ $(function (){
                 $('html, body').animate({
                     scrollTop : 0,
                 }, 1500);
-            });
-
-            $("#date-from").datepicker({
-                dateFormat : 'dd/mm/yy',
-                prevText : '<i class="fa fa-caret-left"></i>',
-                nextText : '<i class="fa fa-caret-right"></i>',
-                onClose : function (selectedDate){
-                    $("#date-to").datepicker("option", "minDate", selectedDate);
-                }
-            });
-            $("#date-to").datepicker({
-                dateFormat : 'dd/mm/yy',
-                prevText : '<i class="fa fa-caret-left"></i>',
-                nextText : '<i class="fa fa-caret-right"></i>',
-                onClose : function (selectedDate){
-                    $("#date-from").datepicker("option", "maxDate", selectedDate);
-                }
             });
         },
         onLoad : function (ev){

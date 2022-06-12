@@ -8,13 +8,13 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class UsersTable extends Table
+class SpeechesTable extends Table
 {
     public function initialize(array $config): void
     {
         parent::initialize($config);
 
-        $this->setTable('users');
+        $this->setTable('speeches');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
@@ -25,6 +25,11 @@ class UsersTable extends Table
                     'modified' => 'always'
                 ]
             ]
+        ]);
+
+        $this->belongsTo('Speakers', [
+            'foreignKey' => 'speaker_id',
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -41,25 +46,36 @@ class UsersTable extends Table
             ->notEmptyString('name');
 
         $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email');
+            ->scalar('title')
+            ->maxLength('title', 255)
+            ->requirePresence('title', 'create')
+            ->notEmptyString('title');
 
         $validator
-            ->scalar('password')
-            ->maxLength('password', 255)
-            ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->scalar('description')
+            ->maxLength('description', 4294967295)
+            ->allowEmptyString('description');
 
         $validator
-            ->notEmptyString('type');
+            ->dateTime('date_time_start')
+            ->requirePresence('date_time_start', 'create')
+            ->notEmptyDateTime('date_time_start');
+
+        $validator
+            ->dateTime('date_time_stop')
+            ->requirePresence('date_time_stop', 'create')
+            ->notEmptyDateTime('date_time_stop');
+
+        $validator
+            ->requirePresence('status', 'create')
+            ->notEmptyString('status');
 
         return $validator;
     }
 
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->existsIn('speaker_id', 'Speakers'), ['errorField' => 'speaker_id']);
 
         return $rules;
     }

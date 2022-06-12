@@ -19,7 +19,8 @@
                             <?php if($this->getRequest()->getSession()->check('Auth.User.id')) {?>
                                 <li class="d-lx-none d-md-none nav-item"><a class="page-scroll" href="<?= $this->Url->build(["controller" => "Pages", "action" => "dashboard"]); ?>"><?= __('Dashboard') ?></a></li>
                             <?php } else {?>
-                                <li class="d-lx-none d-md-none nav-item"><a class="page-scroll" href="<?= $this->Url->build(["controller" => "Accounts", "action" => "login"]); ?>"><?= __('Login') ?></a></li>
+                                <li class="d-lx-none d-md-none nav-item"><a class="page-scroll" href="<?= $this->Url->build(["controller" => "Users", "action" => "login"]); ?>"><?= __('Login') ?></a></li>
+                                <li class="d-lx-none d-md-none nav-item"><a class="page-scroll" href="<?= $this->Url->build(["controller" => "Users", "action" => "login"]); ?>"><?= __('Cadastre-se') ?></a></li>
                             <?php }?>
                         </ul>
                     </div>
@@ -41,6 +42,12 @@
                                     <a class="solid" href="<?= $this->Url->build(["controller" => "Users", "action" => "login"]); ?>" style="margin-right: 10px">
                                         <i class="fad fa-sign-in" style="margin-right: 5px;"></i>
                                         <?= __('Login') ?>
+                                    </a>
+                                </li>
+                                <li class="d-none d-md-inline-block d-lx-inline-block">
+                                    <a class="solid" href="<?= $this->Url->build(["controller" => "Users", "action" => "login"]); ?>" style="margin-right: 10px">
+                                        <i class="fad fa-sign-in" style="margin-right: 5px;"></i>
+                                        <?= __('Cadastre-se') ?>
                                     </a>
                                 </li>
                             </ul>

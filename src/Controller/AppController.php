@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\View\Helper\ToolHelper;
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
 use Cake\Routing\Router;
@@ -82,5 +83,35 @@ class AppController extends Controller
                 'page_icon' => $this->page_icon,
             ]
         );
+    }
+
+    public function onlyAdmin($redirect = ['controller' => 'Pages', 'action' => 'Dashboard'])
+    {
+        if ($this->getRequest()->getSession()->check('Auth.User.id') && $this->getRequest()->getSession()->read('Auth.User.role') !== 1) {
+
+            $msg = 'Acesso indisponível para o seu usuário.';
+
+            if ($this->request->is(['ajax'])) {
+
+                $params = ['success' => FALSE, 'msg' => $msg];
+
+                header('Content-type: application/json');
+                echo json_encode($params);
+                exit;
+            } else {
+                $this->Flash->error($msg);
+
+                return $this->redirect(Router::url($redirect, TRUE));
+            }
+        }
+
+        return TRUE;
+    }
+
+    public function getColor($start = 0x000000, $end = 0xFFFFFF)
+    {
+        $toolhelper = new ToolHelper(new \Cake\View\View());
+
+        return $toolhelper->getColor($start, $end);
     }
 }

@@ -15,7 +15,7 @@ class SpeakersTable extends Table
         parent::initialize($config);
 
         $this->setTable('speakers');
-        $this->setDisplayField('name');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp', [
@@ -27,11 +27,17 @@ class SpeakersTable extends Table
             ]
         ]);
 
-        $this->hasMany('Events', [
+        $this->hasMany('Speeches', [
             'foreignKey' => 'speaker_id',
         ]);
     }
 
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
     public function validationDefault(Validator $validator): Validator
     {
         $validator

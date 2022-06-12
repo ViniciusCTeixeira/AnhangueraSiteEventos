@@ -3,6 +3,7 @@
     namespace App\View\Helper;
 
     use Cake\Chronos\Date;
+    use Cake\Core\Exception\Exception;
     use Cake\View\Helper;
     use Cake\View\Helper\HtmlHelper;
     use Cake\View\View;
@@ -38,8 +39,7 @@
                 '11' => 'Novembro',
                 '12' => 'Dezembro'
             );
-            $dias = array
-            (
+            $dias = array(
                 0 => 'Domingo',
                 1 => 'Segunda-feira',
                 2 => 'Terça-feira',
@@ -257,14 +257,6 @@
             }
         }
 
-        function multiExplode($delimiters, $string)
-        {
-            $ready = str_replace($delimiters, $delimiters[0], $string);
-            $launch = explode($delimiters[0], $ready);
-
-            return $launch;
-        }
-
         public function validDate($date)
         {
             $date_explode = $this->multiExplode(['/', '-'], $date);
@@ -380,18 +372,23 @@
             }
         }
 
-        public function generateMonthsInstallments($date, $number_installments)
+        public function getMonths()
         {
             try {
-
-                $installments = array();
-                $number_installments = (($number_installments == NULL or $number_installments == '') ? 1 : $number_installments);
-
-                for ($i = 0; $i < $number_installments; ++$i) {
-                    $installments[] = array('month' => date("Y-m-d", strtotime("+" . $i . " MONTH", strtotime($date))), 'installment' => $i + 1);
-                }
-
-                return $installments;
+                return [
+                    '01' => 'Janeiro',
+                    '02' => 'Fevereiro',
+                    '03' => 'Março',
+                    '04' => 'Abril',
+                    '05' => 'Maio',
+                    '06' => 'Junho',
+                    '07' => 'Julho',
+                    '08' => 'Agosto',
+                    '09' => 'Setembro',
+                    '10' => 'Outubro',
+                    '11' => 'Novembro',
+                    '12' => 'Dezembro'
+                ];
             } catch (Exception $e) {
                 return FALSE;
             }
@@ -525,5 +522,13 @@
             } else {
                 return $sign . sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
             }
+        }
+
+        private function multiExplode($delimiters, $string)
+        {
+            $ready = str_replace($delimiters, $delimiters[0], $string);
+            $launch = explode($delimiters[0], $ready);
+
+            return $launch;
         }
     }

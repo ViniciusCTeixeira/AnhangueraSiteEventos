@@ -8,13 +8,13 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class ParticipantsTable extends Table
+class SpeecheParticipantsTable extends Table
 {
     public function initialize(array $config): void
     {
         parent::initialize($config);
 
-        $this->setTable('participants');
+        $this->setTable('speeche_participants');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
@@ -27,11 +27,13 @@ class ParticipantsTable extends Table
             ]
         ]);
 
-        $this->hasMany('EventParticipants', [
-            'foreignKey' => 'participant_id',
+        $this->belongsTo('Speeches', [
+            'foreignKey' => 'speeche_id',
+            'joinType' => 'INNER',
         ]);
-        $this->hasMany('SpeecheParticipants', [
+        $this->belongsTo('Participants', [
             'foreignKey' => 'participant_id',
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -42,27 +44,21 @@ class ParticipantsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('name')
-            ->maxLength('name', 255)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->scalar('cert')
+            ->maxLength('cert', 255)
+            ->allowEmptyString('cert');
 
         $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email');
-
-        $validator
-            ->integer('cpf')
-            ->allowEmptyString('cpf');
-
-        $validator
-            ->integer('ra')
-            ->allowEmptyString('ra');
-
-        $validator
-            ->notEmptyString('type');
+            ->notEmptyString('status');
 
         return $validator;
+    }
+
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('speeche_id', 'Speeches'), ['errorField' => 'speeche_id']);
+        $rules->add($rules->existsIn('participant_id', 'Participants'), ['errorField' => 'participant_id']);
+
+        return $rules;
     }
 }

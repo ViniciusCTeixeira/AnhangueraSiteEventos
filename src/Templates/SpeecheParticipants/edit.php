@@ -1,9 +1,9 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\EventParticipant $eventParticipant
+ * @var \App\Model\Entity\SpeecheParticipant $speecheParticipant
+ * @var string[]|\Cake\Collection\CollectionInterface $speeches
  * @var string[]|\Cake\Collection\CollectionInterface $participants
- * @var string[]|\Cake\Collection\CollectionInterface $events
  */
 ?>
 <div class="row">
@@ -12,21 +12,21 @@
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $eventParticipant->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $eventParticipant->id), 'class' => 'side-nav-item']
+                ['action' => 'delete', $speecheParticipant->id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $speecheParticipant->id), 'class' => 'side-nav-item']
             ) ?>
-            <?= $this->Html->link(__('List Event Participants'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('List Speeche Participants'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
-        <div class="eventParticipants form content">
-            <?= $this->Form->create($eventParticipant) ?>
+        <div class="speecheParticipants form content">
+            <?= $this->Form->create($speecheParticipant) ?>
             <fieldset>
-                <legend><?= __('Edit Event Participant') ?></legend>
+                <legend><?= __('Edit Speeche Participant') ?></legend>
                 <?php
                     echo $this->Form->control('cert');
                     echo $this->Form->control('status');
-                    echo $this->Form->control('event_id', ['options' => $events]);
+                    echo $this->Form->control('speeche_id', ['options' => $speeches]);
                     echo $this->Form->control('participant_id', ['options' => $participants]);
                 ?>
             </fieldset>

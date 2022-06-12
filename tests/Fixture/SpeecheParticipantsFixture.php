@@ -6,9 +6,9 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * EventParticipantsFixture
+ * SpeecheParticipantsFixture
  */
-class EventParticipantsFixture extends TestFixture
+class SpeecheParticipantsFixture extends TestFixture
 {
     /**
      * Init method
@@ -20,11 +20,11 @@ class EventParticipantsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'created' => '2022-06-12 15:19:03',
-                'modified' => '2022-06-12 15:19:03',
+                'created' => '2022-06-12 15:20:34',
+                'modified' => '2022-06-12 15:20:34',
                 'cert' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'event_id' => 1,
+                'speeche_id' => 1,
                 'participant_id' => 1,
             ],
         ];

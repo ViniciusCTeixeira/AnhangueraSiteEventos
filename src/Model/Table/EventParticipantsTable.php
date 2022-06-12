@@ -27,12 +27,12 @@ class EventParticipantsTable extends Table
             ]
         ]);
 
-        $this->belongsTo('Participants', [
-            'foreignKey' => 'participant_id',
-            'joinType' => 'INNER',
-        ]);
         $this->belongsTo('Events', [
             'foreignKey' => 'event_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Participants', [
+            'foreignKey' => 'participant_id',
             'joinType' => 'INNER',
         ]);
     }
@@ -48,13 +48,16 @@ class EventParticipantsTable extends Table
             ->maxLength('cert', 255)
             ->allowEmptyString('cert');
 
+        $validator
+            ->notEmptyString('status');
+
         return $validator;
     }
 
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('participant_id', 'Participants'), ['errorField' => 'participant_id']);
         $rules->add($rules->existsIn('event_id', 'Events'), ['errorField' => 'event_id']);
+        $rules->add($rules->existsIn('participant_id', 'Participants'), ['errorField' => 'participant_id']);
 
         return $rules;
     }

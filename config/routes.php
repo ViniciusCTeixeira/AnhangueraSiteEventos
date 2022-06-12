@@ -28,7 +28,7 @@ return static function (RouteBuilder $routes) {
     $routes->setRouteClass(DashedRoute::class);
 
     $routes->scope('/', function (RouteBuilder $builder) {
-        $builder->connect('/*', ['controller' => 'Pages', 'action' => 'index']);
+        $builder->connect('/', ['controller' => 'Pages', 'action' => 'index']);
 
         $builder->fallbacks();
     });

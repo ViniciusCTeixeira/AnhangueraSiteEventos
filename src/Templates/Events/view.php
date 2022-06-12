@@ -19,12 +19,12 @@
             <h3><?= h($event->title) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Title') ?></th>
-                    <td><?= h($event->title) ?></td>
+                    <th><?= __('Name') ?></th>
+                    <td><?= h($event->name) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Speaker') ?></th>
-                    <td><?= $event->has('speaker') ? $this->Html->link($event->speaker->name, ['controller' => 'Speakers', 'action' => 'view', $event->speaker->id]) : '' ?></td>
+                    <th><?= __('Title') ?></th>
+                    <td><?= h($event->title) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>
@@ -47,8 +47,8 @@
                     <td><?= h($event->date_time_start) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Date Time Stop') ?></th>
-                    <td><?= h($event->date_time_stop) ?></td>
+                    <th><?= __('Date Time End') ?></th>
+                    <td><?= h($event->date_time_end) ?></td>
                 </tr>
             </table>
             <div class="text">
@@ -66,9 +66,10 @@
                             <th><?= __('Id') ?></th>
                             <th><?= __('Created') ?></th>
                             <th><?= __('Modified') ?></th>
-                            <th><?= __('Participant Id') ?></th>
-                            <th><?= __('Event Id') ?></th>
                             <th><?= __('Cert') ?></th>
+                            <th><?= __('Status') ?></th>
+                            <th><?= __('Event Id') ?></th>
+                            <th><?= __('Participant Id') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($event->event_participants as $eventParticipants) : ?>
@@ -76,9 +77,10 @@
                             <td><?= h($eventParticipants->id) ?></td>
                             <td><?= h($eventParticipants->created) ?></td>
                             <td><?= h($eventParticipants->modified) ?></td>
-                            <td><?= h($eventParticipants->participant_id) ?></td>
-                            <td><?= h($eventParticipants->event_id) ?></td>
                             <td><?= h($eventParticipants->cert) ?></td>
+                            <td><?= h($eventParticipants->status) ?></td>
+                            <td><?= h($eventParticipants->event_id) ?></td>
+                            <td><?= h($eventParticipants->participant_id) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'EventParticipants', 'action' => 'view', $eventParticipants->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'EventParticipants', 'action' => 'edit', $eventParticipants->id]) ?>

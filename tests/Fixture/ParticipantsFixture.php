@@ -20,8 +20,8 @@ class ParticipantsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'created' => '2022-04-11 20:22:42',
-                'modified' => '2022-04-11 20:22:42',
+                'created' => '2022-06-12 15:19:47',
+                'modified' => '2022-06-12 15:19:47',
                 'name' => 'Lorem ipsum dolor sit amet',
                 'email' => 'Lorem ipsum dolor sit amet',
                 'cpf' => 1,
