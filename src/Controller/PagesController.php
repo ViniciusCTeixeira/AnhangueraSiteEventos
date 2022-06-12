@@ -26,11 +26,9 @@ class PagesController extends AppController
     {
         $toolhelper = new ToolHelper(new \Cake\View\View());
 
-        $events = [['name' => 'Teste', 'description' => 'Testando o sistema', 'icon' => 'feature-icon fad fa-photo-video', 'day' => '27/05/2022'],['name' => 'Teste', 'description' => 'Testando o sistema', 'icon' => 'feature-icon fad fa-photo-video', 'day' => '27/05/2022'],['name' => 'Teste', 'description' => 'Testando o sistema', 'icon' => 'feature-icon fad fa-photo-video', 'day' => '27/05/2022'],['name' => 'Teste', 'description' => 'Testando o sistema', 'icon' => 'feature-icon fad fa-photo-video', 'day' => '27/05/2022']];
-        $oldEvents = [['name' => 'Teste', 'description' => 'Testando o sistema', 'icon' => 'feature-icon fad fa-photo-video'],['name' => 'Teste', 'description' => 'Testando o sistema', 'icon' => 'feature-icon fad fa-photo-video'],['name' => 'Teste', 'description' => 'Testando o sistema', 'icon' => 'feature-icon fad fa-photo-video'],['name' => 'Teste', 'description' => 'Testando o sistema', 'icon' => 'feature-icon fad fa-photo-video']];
-        $speeches = [['name' => 'IA', 'description' => 'Paletra para falar de IA', 'speaker' => 'Vinicius Teixeira', 'img' => '', 'day' => '27/05/2022'],['name' => 'IA', 'description' => 'Paletra para falar de IA', 'speaker' => 'Vinicius Teixeira', 'img' => '', 'day' => '27/05/2022']];
-        $oldSpeeches = [['name' => 'IA', 'description' => 'Paletra para falar de IA', 'speaker' => 'Vinicius Teixeira', 'img' => '', 'day' => '27/05/2022'],['name' => 'IA', 'description' => 'Paletra para falar de IA', 'speaker' => 'Vinicius Teixeira', 'img' => '', 'day' => '27/05/2022']];
-        $this->set(['events' => $events,'oldEvents' => $oldEvents, 'speeches' => $speeches, 'oldSpeeches' => $oldSpeeches]);
+        $events = [];
+        $speeches = [];
+        $this->set(['events' => $events, 'speeches' => $speeches]);
         $this->page_title = $toolhelper->getSalutation() . "!";
     }
 

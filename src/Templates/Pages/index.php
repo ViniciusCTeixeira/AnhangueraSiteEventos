@@ -58,156 +58,300 @@
                 </div>
             </div>
         </div>
-        <?php if (!empty($speeches)) { ?>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <ul class="timeline">
-                        <?php foreach ($speeches as $key => $speech) {?>
-                        <li class="<?= ($key%2 === 0) ? 'timeline-inverted' : ''?>">
-                            <div class="timeline-image">
-                                <img class="rounded-circle img-fluid" src="<?= SITE_URL ?>img/speaker/<?= (!empty($speech['img']))? $speech['img'] : 'avatar-user.png' ?>" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="text-success"><?= h($speech['name']) ?></h4>
-                                    <h5 class="text-info"><?= h($speech['speaker']) ?></h5>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>
-                                        <?= h($speech['description']) ?>
-                                    </p>
-                                    <p class="text-warning">
-                                        <?= h($this->Date->formatDate($speech['day'])) ?>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <?php }?>
-                    </ul>
-                </div>
-            </div>
-        <?php } ?>
-    </div>
-</section>
+        <div class="row bg-white p-3">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="widget-wrap">
+                    <div class="widget-header block-header clearfix">
+                        <?= $this->Form->create(NULL, ['id' => 'Speeches', 'class' => 'j-forms', 'url' => ['controller' => 'Pages', 'action' => 'index'], 'novalidate' => 'novalidate', 'type' => 'get']); ?>
+                        <?php $this->Form->setTemplates(['inputContainer' => '{{content}}']); ?>
 
-<?php if (!empty($oldSpeeches)) { ?>
-    <section id="oldSpeeches" class="page-box page-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="section-title text-center pb-10">
-                        <h3 class="title"><?= __('Palestras Antigas') ?></h3>
-                        <hr>
-                        <p>
-                            <?= __('Comfira algumas das palestras já feitas.') ?>
-                        </p>
+                        <?= $this->Form->control('filter', ['type' => 'hidden', 'value' => 1]) ?>
+
+                        <div class="form-content">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 unit">
+                                    <input class="form-control" name="speeches_q" type="search" placeholder="<?= __('Busca por aproximação...'); ?>" value="<?= $this->request->getQuery('speeches_q'); ?>">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 unit">
+                                            <?= $this->Form->control('speeches_date_from', ['type' => 'text', 'class' => 'form-control mask_date', 'value' => ((!empty($speeches_date_from)) ? $speeches_date_from : ''), 'label' => FALSE, 'placeholder' => __('Data de Início')]) ?>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 unit">
+                                            <?= $this->Form->control('speeches_date_to', ['type' => 'text', 'class' => 'form-control mask_date', 'value' => ((!empty($speeches_date_to)) ? $speeches_date_to : ''), 'label' => FALSE, 'placeholder' => __('Data Fim')]) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                                    <button type="submit" class="btn btn-success btn-sm marginButtonDefault">
+                                        <?= __('Buscar'); ?>
+                                    </button>
+                                    <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'index']); ?>"
+                                       class="btn btn-warning btn-sm marginButtonDefault">
+                                        <?= __('Limpar busca'); ?>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <?= $this->Form->end() ?>
+                    </div>
+                    <div class="widget-container">
+                        <div class="widget-content">
+                            <?php if (count($speeches) > 0) { ?>
+                                <div class="table-responsive">
+                                    <table class="table table-hover"
+                                           style="width: 1029px !important;max-width: 1029px !important;">
+                                        <thead>
+                                        <tr>
+                                            <th width="8%"><?php echo __('Cadastro'); ?></th>
+                                            <th class="text-center" width="5%"><?php echo __('Ativo'); ?></th>
+                                            <th class="text-center" width="10%"><?php echo __('Online'); ?></th>
+                                            <th class="text-center" width="13%"><?php echo __('Último acesso'); ?></th>
+                                            <th><?php echo __('Nome'); ?></th>
+                                            <th><?php echo __('Perfil'); ?></th>
+                                            <th width="7%"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($speeches as $key => $row) { ?>
+                                            <tr>
+                                                <td>
+                                                    <p>
+                                                        <?= (($row->created) ? $this->Date->humanizeDate($row->created->format('Y-m-d H:i:s')) : ''); ?>
+                                                    </p>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php if ($row->allow_login) { ?>
+                                                        <span class="label label-success"><?= __('Sim'); ?></span>
+                                                    <?php } else { ?>
+                                                        <span class="label label-default"><?= __('Não'); ?></span>
+                                                    <?php } ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p>
+                                                        <?php if ($row->is_online) { ?>
+                                                            <span class="label label-success" style="margin-bottom: 5px;"><?= __('Sim') ?></span>
+                                                        <?php } else { ?>
+                                                            <span class="label label-default" style="margin-bottom: 5px;"><?= __('Não') ?></span>
+                                                        <?php } ?>
+                                                    </p>
+                                                    <?php if ($row['last_check_online']) { ?>
+                                                        <p class="marginLineTopDefault">
+                                                            <?= $this->Date->humanizeDate($row['last_check_online']->format('Y-m-d H:i:s')); ?>
+                                                        </p>
+                                                    <?php } ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php if ($row['last_login']) { ?>
+                                                        <p>
+                                                            <?= $this->Date->humanizeDate($row['last_login']->format('Y-m-d H:i:s')); ?>
+                                                        </p>
+                                                    <?php } ?>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Accounts', 'action' => 'employeeView', $row->access_token]); ?>">
+                                                            <?= h($row->full_name) ?>
+                                                        </a>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <?php
+                                                        if ($row->role == 0) {
+                                                            echo 'Atendente';
+                                                        } elseif ($row->role == 1) {
+                                                            echo 'Administrador';
+                                                        } elseif ($row->role == 2) {
+                                                            echo 'Supervisor';
+                                                        } elseif ($row->role == 3) {
+                                                            echo 'Vendedor';
+                                                        }
+                                                        ?>
+                                                    </p>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="<?= $this->Url->build(['controller' => 'Accounts', 'action' => 'employeeView', $row->access_token]); ?>" class="btn btn-info btn-sm">
+                                                        <i class="fad fa-cogs"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <?php echo $this->element('scroll-table') ?>
+                                <?php echo $this->element('pagination', ['textCount' => 'Total de usuários:']); ?>
+                            <?php } else { ?>
+                                <p>
+                                    <?= __('Nenhum registro encontrado até o momento.'); ?>
+                                </p>
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <ul class="timeline">
-                        <?php foreach ($oldSpeeches as $key => $oldSpeech) {?>
-                            <li class="<?= ($key%2 === 0) ? 'timeline-inverted' : ''?>">
-                                <div class="timeline-image">
-                                    <img class="rounded-circle img-fluid" src="<?= SITE_URL ?>img/speaker/<?= (!empty($oldSpeech['img']))? $speech['img'] : 'avatar-user.png' ?>" alt="">
-                                </div>
-                                <div class="timeline-panel">
-                                    <div class="timeline-heading">
-                                        <h4 class="text-success"><?= h($oldSpeech['name']) ?></h4>
-                                        <h5 class="text-info"><?= h($oldSpeech['speaker']) ?></h5>
-                                    </div>
-                                    <div class="timeline-body">
-                                        <p>
-                                            <?= h($oldSpeech['description']) ?>
-                                        </p>
-                                        <p class="text-warning">
-                                            <?= h($this->Date->formatDate($oldSpeech['day'])) ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                        <?php }?>
-                    </ul>
-                </div>
-            </div>
         </div>
-    </section>
-<?php } ?>
+    </div>
+</section>
 
 <section id="events" class="page-box page-dark">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="section-heading">
-                    <h2 class="marginTopDefault"><?= __('Nosso Eventos'); ?></h2>
+                <div class="section-title text-center pb-10">
+                    <h3 class="title"><?= __('Nosso Eventos') ?></h3>
                     <hr>
+                    <p>
+                        <?php if(!empty($events)) {?>
+                            <?= __('Gonfira os eventos que temos para essa semana.'); ?>
+                        <?php } else { ?>
+                            <?= __('Poxa, não temos eventos agendadas para essa semana.') ?>
+                        <?php } ?>
+                    </p>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 col-mdCotação enviada-12 col-sm-12 col-xs-12 marginBottomDefault">
-                        <p style="line-height: 22px;font-size: 18px;" class="marginBottomDefault">
-                            <?php if(!empty($events)) {?>
-                                <?= __('Gonfira os eventos que temos para essa semana.'); ?>
-                            <?php } else { ?>
-                                <?= __('Poxa, não temos eventos agendadas para essa semana.') ?>
-                            <?php } ?>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <?php foreach ($events as $event) {?>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <div class="feature">
-                                <i class="<?= $event['icon'] ?>"></i>
-                                <div class="feature-content">
-                                    <h4 class="text-success"><?= h($event['name']) ?></h4>
-                                    <p><?= h($event['description']) ?></p>
-                                    <p class="text-warning"><?= h($this->Date->formatDate($event['day'])) ?></p>
+            </div>
+        </div>
+        <div class="row bg-white p-3">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="widget-wrap">
+                    <div class="widget-header block-header clearfix">
+                        <?= $this->Form->create(NULL, ['id' => 'Events', 'class' => 'j-forms', 'url' => ['controller' => 'Pages', 'action' => 'index'], 'novalidate' => 'novalidate', 'type' => 'get']); ?>
+                        <?php $this->Form->setTemplates(['inputContainer' => '{{content}}']); ?>
+
+                        <?= $this->Form->control('filter', ['type' => 'hidden', 'value' => 1]) ?>
+
+                        <div class="form-content">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 unit">
+                                    <input class="form-control" name="events_q" type="search" placeholder="<?= __('Busca por aproximação...'); ?>" value="<?= $this->request->getQuery('events_q'); ?>">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 unit">
+                                            <?= $this->Form->control('events_date_from', ['type' => 'text', 'class' => 'form-control mask_date', 'value' => ((!empty($events_date_from)) ? $events_date_from : ''), 'label' => FALSE, 'placeholder' => __('Data de Início')]) ?>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 unit">
+                                            <?= $this->Form->control('events_date_to', ['type' => 'text', 'class' => 'form-control mask_date', 'value' => ((!empty($events_date_to)) ? $events_date_to : ''), 'label' => FALSE, 'placeholder' => __('Data Fim')]) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                                    <button type="submit" class="btn btn-success btn-sm marginButtonDefault">
+                                        <?= __('Buscar'); ?>
+                                    </button>
+                                    <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'index']); ?>"
+                                       class="btn btn-warning btn-sm marginButtonDefault">
+                                        <?= __('Limpar busca'); ?>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    <?php }?>
+                        <?= $this->Form->end() ?>
+                    </div>
+                    <div class="widget-container">
+                        <div class="widget-content">
+                            <?php if (count($events) > 0) { ?>
+                                <div class="table-responsive">
+                                    <table class="table table-hover"
+                                           style="width: 1029px !important;max-width: 1029px !important;">
+                                        <thead>
+                                        <tr>
+                                            <th width="8%"><?php echo __('Cadastro'); ?></th>
+                                            <th class="text-center" width="5%"><?php echo __('Ativo'); ?></th>
+                                            <th class="text-center" width="10%"><?php echo __('Online'); ?></th>
+                                            <th class="text-center" width="13%"><?php echo __('Último acesso'); ?></th>
+                                            <th><?php echo __('Nome'); ?></th>
+                                            <th><?php echo __('Perfil'); ?></th>
+                                            <th width="7%"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($events as $key => $row) { ?>
+                                            <tr>
+                                                <td>
+                                                    <p>
+                                                        <?= (($row->created) ? $this->Date->humanizeDate($row->created->format('Y-m-d H:i:s')) : ''); ?>
+                                                    </p>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php if ($row->allow_login) { ?>
+                                                        <span class="label label-success"><?= __('Sim'); ?></span>
+                                                    <?php } else { ?>
+                                                        <span class="label label-default"><?= __('Não'); ?></span>
+                                                    <?php } ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p>
+                                                        <?php if ($row->is_online) { ?>
+                                                            <span class="label label-success" style="margin-bottom: 5px;"><?= __('Sim') ?></span>
+                                                        <?php } else { ?>
+                                                            <span class="label label-default" style="margin-bottom: 5px;"><?= __('Não') ?></span>
+                                                        <?php } ?>
+                                                    </p>
+                                                    <?php if ($row['last_check_online']) { ?>
+                                                        <p class="marginLineTopDefault">
+                                                            <?= $this->Date->humanizeDate($row['last_check_online']->format('Y-m-d H:i:s')); ?>
+                                                        </p>
+                                                    <?php } ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php if ($row['last_login']) { ?>
+                                                        <p>
+                                                            <?= $this->Date->humanizeDate($row['last_login']->format('Y-m-d H:i:s')); ?>
+                                                        </p>
+                                                    <?php } ?>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <a href="<?= $this->Url->build(['controller' => 'Accounts', 'action' => 'employeeView', $row->access_token]); ?>">
+                                                            <?= h($row->full_name) ?>
+                                                        </a>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>
+                                                        <?php
+                                                        if ($row->role == 0) {
+                                                            echo 'Atendente';
+                                                        } elseif ($row->role == 1) {
+                                                            echo 'Administrador';
+                                                        } elseif ($row->role == 2) {
+                                                            echo 'Supervisor';
+                                                        } elseif ($row->role == 3) {
+                                                            echo 'Vendedor';
+                                                        }
+                                                        ?>
+                                                    </p>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="<?= $this->Url->build(['controller' => 'Accounts', 'action' => 'employeeView', $row->access_token]); ?>" class="btn btn-info btn-sm">
+                                                        <i class="fad fa-cogs"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <?php echo $this->element('scroll-table') ?>
+                                <?php echo $this->element('pagination', ['textCount' => 'Total de usuários:']); ?>
+                            <?php } else { ?>
+                                <p>
+                                    <?= __('Nenhum registro encontrado até o momento.'); ?>
+                                </p>
+                            <?php } ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<?php if (!empty($oldEvents)){?>
-    <section id="oldEvents" class="page-box page-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="section-heading">
-                        <h2 class="marginTopDefault"><?= __('Eventos Antigos'); ?></h2>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-mdCotação enviada-12 col-sm-12 col-xs-12 marginBottomDefault">
-                            <p style="line-height: 22px;font-size: 18px;" class="marginBottomDefault">
-                                <?= __('Gonfira alguns dos eventos ja feitos.'); ?>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <?php foreach ($events as $event) {?>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <div class="feature">
-                                    <i class="<?= $event['icon'] ?>"></i>
-                                    <div class="feature-content">
-                                        <h4 class="text-success"><?= h($event['name']) ?></h4>
-                                        <p><?= h($event['description']) ?></p>
-                                        <p class="text-warning"><?= h($this->Date->formatDate($event['day'])) ?></p>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php }?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-<?php }?>
 
 <section id="contacts" class="contact-area page-dark">
     <div class="container">
