@@ -37,6 +37,7 @@
 
     <!--====== Style CSS ======-->
     <?= $this->Html->css('default/style.css') ?>
+    <?= $this->Html->css('default/pnotify.custom.min.css') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -58,21 +59,11 @@
 <?= $this->Html->script('core/bootstrap.min.js'); ?>
 
 <!--====== Jquery js ======-->
-<?php echo $this->Html->script('default/modernizr-3.7.1.min.js'); ?>
-
-<!--Ui Elements-->
-<?php echo $this->Html->script('default/bootbox'); ?>
-
-<!--====== Slick js ======-->
-<?php echo $this->Html->script('default/slick.min.js'); ?>
-
-<!--====== Isotope js ======-->
-<?php echo $this->Html->script('default/imagesloaded.pkgd.min.js'); ?>
-<?php echo $this->Html->script('default/isotope.pkgd.min.js'); ?>
-
-<!--====== Scrolling Nav js ======-->
-<?php echo $this->Html->script('default/jquery.easing.min.js'); ?>
-<?php echo $this->Html->script('default/scrolling-nav.js'); ?>
+<?php echo $this->Html->script('default/plugins/jquery.mask.js'); ?>
+<?php echo $this->Html->script('default/plugins/jquery.ajaxSubmit.js'); ?>
+<?php echo $this->Html->script('default/plugins/jquery.validate.js'); ?>
+<?php echo $this->Html->script('default/plugins/sweetalert.js'); ?>
+<?php echo $this->Html->script('default/plugins/pnotify.custom.min.js'); ?>
 
 <!--====== Main js ======-->
 <?php echo $this->Html->script('default/application.js'); ?>

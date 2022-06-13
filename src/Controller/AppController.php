@@ -30,7 +30,7 @@ class AppController extends Controller
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
-            'loginRedirect' => ['controller' => 'Pages', 'action' => 'dashboard'],
+            'loginRedirect' => ['controller' => 'Pages', 'action' => 'myUser'],
             'logoutRedirect' => ['controller' => 'Pages', 'action' => 'index'],
             'loginAction' => ['controller' => 'Users', 'action' => 'login'],
             'authenticate' => [
@@ -85,7 +85,7 @@ class AppController extends Controller
         );
     }
 
-    public function onlyAdmin($redirect = ['controller' => 'Pages', 'action' => 'Dashboard'])
+    public function onlyAdmin($redirect = ['controller' => 'Pages', 'action' => 'myUser'])
     {
         if ($this->getRequest()->getSession()->check('Auth.User.id') && $this->getRequest()->getSession()->read('Auth.User.role') !== 1) {
 

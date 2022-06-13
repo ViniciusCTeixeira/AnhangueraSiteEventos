@@ -17,6 +17,7 @@ $(function (){
             }
 
             application.setEvents();
+            application.setThemes();
         },
         setEvents : function (){
             $(document).on('ready', application.onReady);
@@ -65,6 +66,10 @@ $(function (){
                 }, 1500);
             });
         },
+        setThemes : function (){
+            $('.cpf').mask('000.000.000-00', {reverse: false});
+            $('.ra').mask('000000000000', {reverse: false});
+        },
         onLoad : function (ev){
             application.windowWidth = $(window).width();
             application.windowHeight = $(window).height();
@@ -99,6 +104,63 @@ $(function (){
                 }
             }
         },
+        pnotify : function (type, msg, title){
+            title = ((title == '' || title == undefined) ? false : title);
+            new PNotify({title : title, text : msg, type : type});
+
+            return true;
+        },
+        showAlert: function (type, msg, title, redirect) {
+            title = ((title === '' || title === undefined) ? '' : title);
+            redirect = ((redirect === '' || redirect === undefined) ? '' : redirect);
+
+            switch (type) {
+                case "success":
+                    Swal.fire({
+                        icon: 'success',
+                        title: title,
+                        text: msg,
+                    })
+                    break;
+                case "error":
+                    Swal.fire({
+                        icon: 'error',
+                        title: title,
+                        text: msg,
+                    })
+                    break;
+                case "warning":
+                    Swal.fire({
+                        icon: 'warning',
+                        title: title,
+                        text: msg,
+                    })
+                    break;
+                case "info":
+                    Swal.fire({
+                        icon: 'info',
+                        title: title,
+                        text: msg,
+                    })
+                    break;
+                case "question":
+                    Swal.fire({
+                        icon: 'question',
+                        title: title,
+                        text: msg,
+                    })
+                    break;
+                case "successRedirect":
+                    Swal.fire({
+                        icon: 'success',
+                        title: title,
+                        text: msg,
+                    }).then(function (text){
+                        window.location = redirect;
+                    });
+                    break;
+            }
+        }
     };
     application.init();
 });

@@ -26,6 +26,10 @@ class UsersTable extends Table
                 ]
             ]
         ]);
+
+        $this->hasOne('Participants', [
+            'foreignKey' => 'user_id',
+        ]);
     }
 
     public function validationDefault(Validator $validator): Validator

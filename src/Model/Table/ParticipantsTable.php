@@ -30,8 +30,13 @@ class ParticipantsTable extends Table
         $this->hasMany('EventParticipants', [
             'foreignKey' => 'participant_id',
         ]);
+
         $this->hasMany('SpeecheParticipants', [
             'foreignKey' => 'participant_id',
+        ]);
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
         ]);
     }
 
@@ -65,4 +70,5 @@ class ParticipantsTable extends Table
 
         return $validator;
     }
+
 }

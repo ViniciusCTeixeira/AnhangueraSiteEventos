@@ -186,7 +186,7 @@ $app = [
         ],
     ],
     'Session' => [
-        'defaults' => 'php',
+        'defaults' => 'database',
         'timeout' => 86400,       //in minutes
         'cookieTimeout' => 86400,    // session cookie 24 hours
         'autoRegenerate' => TRUE,    // regenerate session

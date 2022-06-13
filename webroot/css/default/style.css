@@ -2272,7 +2272,6 @@ a:hover,
     top: 0;
     left: 0;
     width: 100%;
-    padding: 10px 0;
     z-index: 99; }
 .navbar-area .navbar {
     position: relative;
@@ -2445,6 +2444,14 @@ a:hover,
 .navbar-area .navbar .navbar-btn li a.solid:hover {
     background-color: #fff;
     color: #f36717; }
+
+.navbar-area .navbar .navbar-btn li a.solid2 {
+    background-color: transparent;
+    border-color: #fff;
+    color: red; }
+.navbar-area .navbar .navbar-btn li a.solid2:hover {
+    background-color: #fff;
+    color: red; }
 .navbar-area.sticky {
     background-color: #fff;
     z-index: 999;
@@ -2470,6 +2477,10 @@ a:hover,
 .navbar-area.sticky .navbar .navbar-btn li a.solid {
     border-color: #f36717;
     background-color: #f36717;
+    color: #fff; }
+.navbar-area.sticky .navbar .navbar-btn li a.solid2 {
+    border-color: red;
+    background-color: red;
     color: #fff; }
 
 /*===========================
@@ -3833,7 +3844,7 @@ a.text-green:focus {
 }
 /* - -------------------------------------------------------------------------------------------------------------- - */
 
-.page-full {padding-top: 120px;}
+.page-full {padding-top: 120px; padding-bottom: 120px;}
 .page-box {padding-top: 60px;padding-bottom: 25px !important;}
 .page-light {background-color: #dcdcdc17;}
 .page-dark {background-color: #f5f5f5;}
@@ -4288,4 +4299,426 @@ section.box-with-image-right .content ul ul {
     -ms-animation: fa-blink .75s linear infinite;
     -o-animation: fa-blink .75s linear infinite;
     animation: fa-blink .75s linear infinite;
+}
+/* Tooltip
+=============================== */
+.j-forms .tooltip,
+.j-forms .tooltip-image {
+    background-color: #455a64;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    display: block;
+    left: -9999px;
+    opacity: 0;
+    position: absolute;
+    z-index: 100;
+}
+.j-forms .tooltip {
+    color: #fff;
+    line-height: 20px;
+    padding: 5px 10px;
+}
+.j-forms .tooltip-image {
+    padding: 2px 2px 1px;
+}
+.j-forms .input input:focus + .tooltip,
+.j-forms .input textarea:focus + .tooltip,
+.j-forms .select select:focus + .tooltip,
+.j-forms .input input:focus + .tooltip-image,
+.j-forms .input textarea:focus + .tooltip-image,
+.j-forms .select select:focus + .tooltip-image {
+    opacity: 1;
+    z-index: 5;
+}
+.j-forms .tooltip-left-top {
+    bottom: 100%;
+    margin-bottom: 8px;
+}
+.j-forms .tooltip-left-top:before {
+    border-color: #455a64 transparent;
+    border-style: solid;
+    border-width: 8px 7px 0;
+    bottom: -6px;
+    content: "";
+    left: 16px;
+    position: absolute;
+}
+.j-forms .input input:focus + .tooltip-left-top,
+.j-forms .input textarea:focus + .tooltip-left-top,
+.j-forms .select select:focus + .tooltip-left-top {
+    left: 0;
+    right: auto;
+}
+.j-forms .tooltip-right-top {
+    bottom: 100%;
+    margin-bottom: 8px;
+}
+.j-forms .tooltip-right-top:before {
+    border-color: #455a64 transparent;
+    border-style: solid;
+    border-width: 8px 7px 0;
+    bottom: -6px;
+    content: "";
+    position: absolute;
+    right: 16px;
+}
+.j-forms .input input:focus + .tooltip-right-top,
+.j-forms .input textarea:focus + .tooltip-right-top,
+.j-forms .select select:focus + .tooltip-right-top {
+    left: auto;
+    right: 0;
+}
+.j-forms .tooltip-left-bottom {
+    margin-top: 8px;
+    top: 100%;
+}
+.j-forms .tooltip-left-bottom:before {
+    border-color: #455a64 transparent;
+    border-style: solid;
+    border-width: 0 7px 8px;
+    top: -6px;
+    content: "";
+    left: 16px;
+    position: absolute;
+}
+.j-forms .input input:focus + .tooltip-left-bottom,
+.j-forms .input textarea:focus + .tooltip-left-bottom,
+.j-forms .select select:focus + .tooltip-left-bottom {
+    left: 0;
+    right: auto;
+}
+.j-forms .tooltip-right-bottom {
+    margin-top: 8px;
+    top: 100%;
+}
+.j-forms .tooltip-right-bottom:before {
+    border-color: #455a64 transparent;
+    border-style: solid;
+    border-width: 0 7px 8px;
+    top: -6px;
+    content: "";
+    right: 16px;
+    position: absolute;
+}
+.j-forms .input input:focus + .tooltip-right-bottom,
+.j-forms .input textarea:focus + .tooltip-right-bottom,
+.j-forms .select select:focus + .tooltip-right-bottom {
+    left: auto;
+    right: 0;
+}
+.j-forms .tooltip-right-side {
+    margin-left: 8px;
+    top: 8px;
+    white-space: nowrap;
+}
+.j-forms .tooltip-right-side:before {
+    border-color: transparent #455a64;
+    border-style: solid;
+    border-width: 7px 8px 7px 0;
+    content: "";
+    left: -6px;
+    position: absolute;
+    top: 8px;
+}
+.j-forms .input input:focus + .tooltip-right-side,
+.j-forms .input textarea:focus + .tooltip-right-side,
+.j-forms .select select:focus + .tooltip-right-side {
+    left: 100%;
+}
+.j-forms .tooltip-left-side {
+    margin-right: 8px;
+    top: 8px;
+    white-space: nowrap;
+}
+.j-forms .tooltip-left-side:before {
+    border-color: transparent #455a64;
+    border-style: solid;
+    border-width: 7px 0 7px 8px;
+    content: "";
+    right: -6px;
+    position: absolute;
+    top: 8px;
+}
+.j-forms .input input:focus + .tooltip-left-side,
+.j-forms .input textarea:focus + .tooltip-left-side,
+.j-forms .select select:focus + .tooltip-left-side {
+    left: auto;
+    right: 100%;
+}
+/* Status message
+=============================== */
+.j-forms .error-message,
+.j-forms .success-message,
+.j-forms .info-message,
+.j-forms .warning-message {
+    border: 1px solid;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    display: block;
+    padding: 15px;
+}
+.j-forms .error-message i,
+.j-forms .success-message i,
+.j-forms .info-message i,
+.j-forms .warning-message i {
+    font-size: 18px;
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    padding-right: 10px;
+}
+.j-forms .error-message ul,
+.j-forms .success-message ul,
+.j-forms .info-message ul,
+.j-forms .warning-message ul {
+    margin: 0;
+}
+.j-forms span.error-view,
+.j-forms span.success-view,
+.j-forms span.warning-view,
+.j-forms span.info-view {
+    display: block;
+    font-size: 14px;
+    height: 14px;
+    line-height: 14px;
+    margin-top: 5px;
+    padding: 0 2px;
+}
+.j-forms span.hint {
+    display: block;
+    font-size: 13px;
+    color: inherit;
+    height: 13px;
+    line-height: 13px;
+    margin-top: 5px;
+    padding: 0 2px;
+}
+/* Disabled state
+=============================== */
+.j-forms .widget.disabled-view,
+.j-forms .input.disabled-view,
+.j-forms .select.disabled-view,
+.j-forms .checkbox.disabled-view,
+.j-forms .radio.disabled-view,
+.j-forms .checkbox-toggle.disabled-view,
+.j-forms .radio-toggle.disabled-view,
+.j-forms .primary-btn.disabled-view,
+.j-forms .secondary-btn.disabled-view,
+.j-forms .file-button.disabled-view {
+    cursor: default;
+    opacity: .5;
+}
+.j-forms .input.disabled-view input[type="file"] {
+    cursor: default;
+}
+.j-forms .widget.disabled-view input,
+.j-forms .input.disabled-view input,
+.j-forms .input.disabled-view textarea,
+.j-forms .select.disabled-view select {
+    border-color: rgba(0, 0, 0, 0.12) !important;
+}
+.j-forms .checkbox.disabled-view i,
+.j-forms .radio.disabled-view i,
+.j-forms .checkbox-toggle.disabled-view i,
+.j-forms .radio-toggle.disabled-view i {
+    border-color: rgba(0, 0, 0, 0.26) !important;
+}
+.j-forms .primary-btn.disabled-view,
+.j-forms .secondary-btn.disabled-view,
+.j-forms .disabled-view .file-button {
+    background: #17bab8;
+}
+.j-forms .widget.disabled-view .addon-btn:hover,
+.j-forms .widget.disabled-view .addon-btn:focus {
+    background: #e0e0e0;
+    cursor: default;
+    color: rgba(0, 0, 0, 0.56);
+}
+.j-forms .widget.disabled-view .addon-btn i {
+    color: rgba(0, 0, 0, 0.24) !important;
+}
+/* Error state
+=============================== */
+.j-forms .error-view .checkbox i,
+.j-forms .error-view .radio i,
+.j-forms .error-view .checkbox-toggle i,
+.j-forms .error-view .radio-toggle i,
+.j-forms .error-view input,
+.j-forms .error-view select,
+.j-forms .error-view textarea {
+    background: #ffebee !important;
+}
+.j-forms .select.error-view i {
+    background-color: #ffebee;
+}
+.j-forms .error-view .icon-left,
+.j-forms .error-view .icon-right {
+    border-color: #e57373;
+}
+.j-forms .error-view .icon-left,
+.j-forms .error-view .icon-right,
+.j-forms span.error-view,
+.j-forms .error-message i {
+    color: #ef5350;
+}
+.j-forms .error-message {
+    background: #ffebee;
+    border-color: #ef9a9a;
+    color: #ef5350;
+}
+/* Success state
+=============================== */
+.j-forms .success-view .checkbox i,
+.j-forms .success-view .radio i,
+.j-forms .success-view .checkbox-toggle i,
+.j-forms .success-view .radio-toggle i,
+.j-forms .success-view input,
+.j-forms .success-view select,
+.j-forms .success-view textarea {
+    background: #e8f5e9 !important;
+}
+.j-forms .select.success-view i {
+    background-color: #e8f5e9;
+}
+.j-forms .success-view .icon-left,
+.j-forms .success-view .icon-right {
+    border-color: #81c784;
+}
+.j-forms .success-view .icon-left,
+.j-forms .success-view .icon-right,
+.j-forms span.success-view,
+.j-forms .success-message i {
+    color: #2e7d32;
+}
+.j-forms .success-message {
+    background: #e8f5e9;
+    border-color: #81c784;
+    color: #2e7d32;
+}
+/* Warning state
+=============================== */
+.j-forms .warning-view .checkbox i,
+.j-forms .warning-view .radio i,
+.j-forms .warning-view .checkbox-toggle i,
+.j-forms .warning-view .radio-toggle i,
+.j-forms .warning-view input,
+.j-forms .warning-view select,
+.j-forms .warning-view textarea {
+    background: #fff8e1 !important;
+}
+.j-forms .select.warning-view i {
+    background-color: #fff8e1;
+    -webkit-box-shadow: 0 0 0 12px #fff8e1;
+    -moz-box-shadow: 0 0 0 12px #fff8e1;
+    -o-box-shadow: 0 0 0 12px #fff8e1;
+    box-shadow: 0 0 0 12px #fff8e1;
+}
+.j-forms .warning-view .icon-left,
+.j-forms .warning-view .icon-right {
+    border-color: #f9a825;
+}
+.j-forms .warning-view .icon-left,
+.j-forms .warning-view .icon-right,
+.j-forms span.warning-view,
+.j-forms .warning-message i {
+    color: #f57f17;
+}
+.j-forms .warning-message {
+    background: #fff8e1;
+    border-color: #f57f17;
+    color: #f57f17;
+}
+/* Info state
+=============================== */
+.j-forms .info-view .checkbox i,
+.j-forms .info-view .radio i,
+.j-forms .info-view .checkbox-toggle i,
+.j-forms .info-view .radio-toggle i,
+.j-forms .info-view input,
+.j-forms .info-view select,
+.j-forms .info-view textarea {
+    background: #e1f5fe !important;
+}
+.j-forms .select.info-view i {
+    background-color: #e1f5fe;
+    -webkit-box-shadow: 0 0 0 12px #e1f5fe;
+    -moz-box-shadow: 0 0 0 12px #e1f5fe;
+    -o-box-shadow: 0 0 0 12px #e1f5fe;
+    box-shadow: 0 0 0 12px #e1f5fe;
+}
+.j-forms .info-view .icon-left,
+.j-forms .info-view .icon-right {
+    border-color: #0288d1;
+}
+.j-forms .info-view .icon-left,
+.j-forms .info-view .icon-right,
+.j-forms span.info-view,
+.j-forms .info-message i {
+    color: #01579b;
+}
+.j-forms .info-message {
+    background: #e1f5fe;
+    border-color: #01579b;
+    color: #01579b;
+}
+.j-forms .btn-submit:hover.processing {
+    cursor: wait;
+}
+.j-forms .btn-submit.processing:before {
+    background: rgba(255, 255, 255, 0.4);
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    -webkit-animation: processing 3s ease-in-out infinite;
+    -moz-animation: processing 3s ease-in-out infinite;
+    -ms-animation: processing 3s ease-in-out infinite;
+    -o-animation: processing 3s ease-in-out infinite;
+    animation: processing 3s ease-in-out infinite;
+}
+@-webkit-keyframes processing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+@-moz-keyframes processing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+@-ms-keyframes processing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+@-o-keyframes processing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+@keyframes processing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
 }

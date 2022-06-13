@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 12/06/2022 17:16:12
+ Date: 12/06/2022 22:40:14
 */
 
 SET NAMES utf8mb4;
@@ -34,11 +34,7 @@ CREATE TABLE `event_participants`  (
   INDEX `event_id`(`event_id`) USING BTREE,
   CONSTRAINT `event_participants_ibfk_1` FOREIGN KEY (`participant_id`) REFERENCES `participants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `event_participants_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of event_participants
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for events
@@ -58,11 +54,7 @@ CREATE TABLE `events`  (
   `url` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `address` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of events
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for participants
@@ -77,12 +69,24 @@ CREATE TABLE `participants`  (
   `cpf` int NULL DEFAULT NULL,
   `ra` int NULL DEFAULT NULL,
   `type` tinyint NOT NULL DEFAULT 0 COMMENT '0 = aluno, 1 = outros',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `participants_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of participants
+-- Table structure for sessions
 -- ----------------------------
+DROP TABLE IF EXISTS `sessions`;
+CREATE TABLE `sessions`  (
+  `id` char(40) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `created` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `data` blob NULL,
+  `expires` int UNSIGNED NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for speakers
@@ -97,11 +101,7 @@ CREATE TABLE `speakers`  (
   `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of speakers
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for speeche_participants
@@ -121,10 +121,6 @@ CREATE TABLE `speeche_participants`  (
   CONSTRAINT `speeche_participants_ibfk_1` FOREIGN KEY (`participant_id`) REFERENCES `participants` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `speeche_participants_ibfk_2` FOREIGN KEY (`speeche_id`) REFERENCES `speeches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of speeche_participants
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for speeches
@@ -150,10 +146,6 @@ CREATE TABLE `speeches`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of speeches
--- ----------------------------
-
--- ----------------------------
 -- Table structure for users
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
@@ -164,13 +156,8 @@ CREATE TABLE `users`  (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `role` tinyint NOT NULL DEFAULT 0 COMMENT '0 = admin, 1 = user',
+  `role` tinyint NOT NULL DEFAULT 0 COMMENT '0 = user, 1 = admin',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of users
--- ----------------------------
-INSERT INTO `users` VALUES (1, '2022-04-11 21:00:16', '2022-04-11 21:00:16', 'Admin', 'admin@gmail.com', '$2y$10$y2/oZj2h/pwmTVVDZ2P3TOvoyNt9xaNS4ZOq33FKRfmI9Tx8aF1Ca', 0);
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -23,7 +23,56 @@
             return preg_replace('/[^0-9]/', '', $string);
         }
 
-        static function strtolower($str)
+        public function formatCPFCNPJ($string, $setMask = TRUE)
+        {
+            $string = preg_replace('/[^0-9]/', '', $string);
+
+            if ($setMask === FALSE) {
+                return $string;
+            }
+
+            $output = preg_replace("[' '-./ t]", '', $string);
+            $size = (strlen($output) - 2);
+            if ($size !== 9 && $size !== 12) {
+                return FALSE;
+            }
+            $mask = ($size === 9) ? '###.###.###-##' : '##.###.###/####-##';
+            $index = -1;
+            for ($i = 0, $iMax = strlen($mask); $i < $iMax; $i++):
+                if ($mask[$i] == '#') {
+                    $mask[$i] = $output[++$index];
+                }
+            endfor;
+
+            return $mask;
+        }
+
+        public function validCPF($cpf)
+        {
+            $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+
+            if (strlen($cpf) != 11) {
+                return FALSE;
+            }
+
+            if (preg_match('/(\d)\1{10}/', $cpf)) {
+                return FALSE;
+            }
+
+            for ($t = 9; $t < 11; $t++) {
+                for ($d = 0, $c = 0; $c < $t; $c++) {
+                    $d += $cpf{$c} * (($t + 1) - $c);
+                }
+                $d = ((10 * $d) % 11) % 10;
+                if ($cpf{$c} != $d) {
+                    return FALSE;
+                }
+            }
+
+            return TRUE;
+        }
+
+        public function strtolower($str)
         {
             if (is_array($str))
                 return FALSE;
@@ -33,7 +82,7 @@
             return strtolower($str);
         }
 
-        static function strtoupper($str)
+        public function strtoupper($str)
         {
             if (is_array($str))
                 return FALSE;
